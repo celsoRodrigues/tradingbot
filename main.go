@@ -50,12 +50,41 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	
+
 	for _, x := range res.Symbols {
 		if x.Symbol == "ADAGBP" {
 			fmt.Println("MAX PRICE", x.Filters[0]["maxPrice"], "MIN PRICE", x.Filters[0]["minPrice"])
 		}
 
 	}
+
+	//talib
+	klines, err := client.NewKlinesService().Symbol("ADAGBP").
+		Interval("1d").StartTime(1617044270).Do(context.Background())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(klines[len(klines)-1])
+
+	//var inReal []float64
+
+	// for _, k := range klines {
+
+	// 	float, err := strconv.ParseFloat(k.Close, 64)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+
+	// 	inReal = append(inReal, float)
+
+	// }
+
+	// myEMA := talib.Ema(inReal, 14)
+
+	// for _, x := range myEMA {
+	// 	fmt.Println(x)
+	// }
 
 }
